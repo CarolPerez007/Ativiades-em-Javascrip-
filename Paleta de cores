@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerador de Paleta de Cores</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #f0f0f0;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .palette {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .color-block {
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gerador de Paleta de Cores</h1>
+  <div class="palette" id="palette">
+    <!-- Blocos de cor serão inseridos aqui -->
+  </div>
+  <button onclick="gerarCores()">Girar</button>
+
+  <script>
+    const palette = document.getElementById('palette');
+
+    // Função para gerar cor hexadecimal aleatória
+    function gerarCorHex() {
+      const letras = '0123456789ABCDEF';
+      let cor = '#';
+      for (let i = 0; i < 6; i++) {
+        cor += letras[Math.floor(Math.random() * 16)];
+      }
+      return cor;
+    }
+
+    // Gera 5 cores e aplica nos blocos
+    function gerarCores() {
+      palette.innerHTML = ''; // Limpa os blocos
+      for (let i = 0; i < 5; i++) {
+        const cor = gerarCorHex();
+        const bloco = document.createElement('div');
+        bloco.className = 'color-block';
+        bloco.style.backgroundColor = cor;
+        bloco.innerText = cor;
+        palette.appendChild(bloco);
+      }
+    }
+
+    // Geração inicial
+    gerarCores();
+
+    // Detecta tecla de espaço para regenerar cores
+    document.addEventListener('keydown', function(e) {
+      if (e.code === 'Space') {
+        e.preventDefault(); // Evita rolagem da página
+        gerarCores();
+      }
+    });
+  </script>
+</body>
+</html>
